@@ -1,72 +1,84 @@
-// create function getComputerChoice which randomly chooses Rock, Paper, or Scissors
 function getComputerChoice() {
-// create variable num will produce three distinct options (1, 2, and 3)
     let num = Math.floor(Math.random() * 3 + 1);
-// assign Rock, Paper, and Scissors to each option
     if (num === 1) {
         return 'Rock'
     } if (num === 2) {
         return 'Paper'
     } else {return 'Scissors'}
 }
+let computerSelection;
+let playerScore = 0, computerScore = 0, roundNumber = 1;
+const round = document.querySelector('p');
+const player = document.querySelector('.player');
+const computer = document.querySelector('.computer');
+const computerChoice = document.querySelector('.computerChoice');
+const playerChoice = document.querySelector('playerChoice');
 
-// declare variables for starting scores and round number
-    let playerScore = 0, computerScore = 0, roundNumber = 0;
-// log starting scores of 0 in the console
-    console.log(`Score:\nPlayer: ${playerScore}\nComputer: ${computerScore}`);
-// create function game() which allows you to play 5 rounds
-function game() {  
-    for (let i = 0; i <= 4; i++) {
-        // create function playRound with parameters playerSelection and computerSelection (default = the function getComputerChoice)
-        function playRound(playerSelection, computerSelection = getComputerChoice()) {
-            // prompt the user for their input and assign it to variable playerSelection
-            playerSelection = window.prompt("Choose your weapon! Rock? Paper? Or Scissors?", "");
-            // make playerSelection case insensitive and store as variable playerSelectionSentCase
-            restlowercase = playerSelection.slice(1).toLowerCase();
-            firstcapital = playerSelection.charAt(0).toUpperCase();
-            playerSelectionSentCase = firstcapital + restlowercase;
-        
-            // create an appropriate return message for all 9 possible cases of selections and increment the winner's score
-            if (playerSelectionSentCase === 'Rock' && computerSelection === 'Paper') {
-                computerScore++; 
-                return 'You Lose! Paper beats Rock';
-            } else if (playerSelectionSentCase === 'Rock' && computerSelection === 'Scissors') {
-                playerScore++; 
-                return 'You Win! Rock beats Scissors';       
-            } else if (playerSelectionSentCase === 'Paper' && computerSelection === 'Rock') {
-                playerScore++;
-                return 'You Win! Paper beats Rock';       
-            } else if (playerSelectionSentCase === 'Paper' && computerSelection === 'Scissors') {
-                computerScore++; 
-                return 'You Lose! Scissors beats Paper';       
-            } else if (playerSelectionSentCase === 'Scissors' && computerSelection === 'Rock') {
-                computerScore++; 
-                return 'You Lose! Rock beats Scissors';       
-            } else if (playerSelectionSentCase === 'Scissors' && computerSelection === 'Paper') {
-                playerScore++; 
-                return 'You Win! Scissors beats Paper';       
-            } else {
-                return `It's a draw! You both chose ${playerSelectionSentCase}`
-            }
-        }
-        // increment the round number
-        roundNumber++;
-        // run one round; log the round number, result message, and updated scores
-        result = playRound();
-        console.log(`\nRound #${roundNumber}`);        
-        console.log(result);
-        console.log(`Score:\nPlayer: ${playerScore}\nComputer: ${computerScore}`);
-    } 
+round.textContent = `Next Round: Round ${roundNumber}`;
+player.textContent = `Player Score: ${playerScore}`;
+computer.textContent = `Computer Score: ${computerScore}`;
 
-    // after 5 rounds have finished, declare a winner with an appropriate message; reset the scores and round number
-    if (playerScore < computerScore) {
-        playerScore = 0, computerScore = 0, roundNumber = 0;
-        return "You lose! Sucks to suck!"
-    } else if (playerScore > computerScore) {
-        playerScore = 0, computerScore = 0, roundNumber = 0;
-        return "You win! Take it easy on us champ!"
-    } else {
-        playerScore = 0, computerScore = 0, roundNumber = 0;
-        return "You tied?"}
-}
+
+
+function playRound(playerSelection, computerSelection = getComputerChoice()) {
+    restlowercase = playerSelection.slice(1).toLowerCase();
+    firstcapital = playerSelection.charAt(0).toUpperCase();
+    playerSelectionSentCase = firstcapital + restlowercase;
     
+    if (playerSelectionSentCase === 'Rock' && computerSelection === 'Paper') {
+        computerScore++; 
+        roundNumber++;
+        return `You Lose! Paper beats Rock`;
+    } else if (playerSelectionSentCase === 'Rock' && computerSelection === 'Scissors') {
+        playerScore++; roundNumber++;
+        return `You Win! Rock beats Scissors`;       
+    } else if (playerSelectionSentCase === 'Paper' && computerSelection === 'Rock') {
+        playerScore++; roundNumber++;
+        return `You Win! Paper beats Rock`;       
+    } else if (playerSelectionSentCase === 'Paper' && computerSelection === 'Scissors') {
+        computerScore++; roundNumber++;
+        return `You Lose! Scissors beats Paper`;       
+    } else if (playerSelectionSentCase === 'Scissors' && computerSelection === 'Rock') {
+        computerScore++; roundNumber++;
+        return `You Lose! Rock beats Scissors`;       
+    } else if (playerSelectionSentCase === 'Scissors' && computerSelection === 'Paper') {
+        playerScore++; roundNumber++;
+        return `You Win! Scissors beats Paper`;       
+    } else {
+        roundNumber++;
+        return `It's a draw! You both chose ${playerSelectionSentCase}`;        
+    } 
+}
+
+const resultsLine = document.querySelector('para1');
+const winner = document.querySelector('.winner');
+const roundWinner = document.querySelector('.para2');
+let weapon;
+let result;
+
+function runRound(weapon) {
+    result = playRound(weapon, computerSelection);
+    roundWinner.textContent = result;
+
+    if (roundNumber <= 5) {
+        round.textContent = `Next Round: Round ${roundNumber}`;
+        player.textContent = `Player Score: ${playerScore}`;
+        computer.textContent = `Computer Score: ${computerScore}`;
+    } else if (roundNumber == 6) {
+        round.textContent = `Game Over`;
+        if (computerScore > playerScore) {
+            round.textContent += ': You lose!';
+        } else if (playerScore > computerScore) {
+            round.textContent += ': You win!';
+        } else {round.textContent += ': You tied!'};
+        player.textContent = `Player Score: ${playerScore}`;
+        computer.textContent = `Computer Score: ${computerScore}`; 
+    } else {location.reload()}
+}
+
+const rock = document.querySelector('.rock');
+rock.addEventListener('click', () => runRound('Rock'));
+const paper = document.querySelector('.paper');
+paper.addEventListener('click', () => runRound('Paper'));
+const scissors = document.querySelector('.scissors');
+scissors.addEventListener('click', () => runRound('Scissors'));

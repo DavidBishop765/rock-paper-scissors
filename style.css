@@ -1,0 +1,61 @@
+h1 {
+    text-align: center;
+    font-size: 56pt;
+}
+
+.round {
+    text-align: center;
+    padding: 10px;
+    font-size: 32pt;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+img {
+    max-width: 200px;
+    max-height: 200px;
+    padding: 10px;
+}
+
+.scorecontainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.player,
+.computer {
+    padding: 20px 0;
+    font-size: 20pt;
+}
+
+.para2,
+.para1 {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 20pt;
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+    gap: 200px;
+}
+
+.computerChoice img {
+    width: 125px;
+    height: 125px;
+    display: flex;
+    justify-content: right;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
