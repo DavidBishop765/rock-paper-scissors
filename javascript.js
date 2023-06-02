@@ -71,8 +71,6 @@ let result;
 const computerChoiceImage = document.querySelector('.computerChoiceImage');
 const playerChoiceImage = document.querySelector('.playerChoiceImage');
 
-// create variables that will insert specifc images when called
-
 // define functions that will insert the correct images based on player and computer choices
 function addPlayerChoice(weapon2) {
     if (weapon2 == 'Rock') {
@@ -127,4 +125,3 @@ function runRound(weapon) {
 rock.addEventListener('click', () => runRound('Rock'));
 paper.addEventListener('click', () => runRound('Paper'));
 scissors.addEventListener('click', () => runRound('Scissors'));
-
